@@ -1,10 +1,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.ocwvar.xlocker">
+          xmlns:tools="http://schemas.android.com/tools" package="com.ocwvar.xlocker"
+          tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon">
 
-    <application android:allowBackup="true"
-                 android:label="@string/app_name"
-                 android:icon="@mipmap/ic_launcher"
-                 android:roundIcon="@mipmap/ic_launcher_round"
-                 android:supportsRtl="true"
-                 android:theme="@style/AppTheme"/>
+    <application
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+
+        <!--这里配置无障碍服务-->
+        <service android:name=".service.RunningApplicationChecker"
+                 android:enabled="true"
+                 android:exported="true"
+                 android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.accessibilityservice"
+                    android:resource="@xml/accessibility" />
+
+        </service>
+
+    </application>
+
 </manifest>

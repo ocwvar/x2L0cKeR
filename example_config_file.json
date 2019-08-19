@@ -1,0 +1,26 @@
+{
+  "lock": [  //这里进行配置需要锁定的APP包名
+    {
+      "name": "com.android.settings",  //应用包名
+      "groupId": 1  //所属规则组id
+    },
+    {
+      "name": "com.tencent.mobileqq",
+      "groupId": 2
+    }
+  ],
+  "group": [  //这里键配置规则组
+    {
+      "id": 1,  //组id
+      "start": "1:00",  //组生效时间
+      "end": "13:00"  //组失效时间
+    },
+    {
+      "id": 2,
+      "start": "1:00",
+      "end": "5:00"
+    }
+  ],
+  "updateInterval": 60000,  //配置文件读取刷新时间，将会在下一次读取的时候生效
+  "type": 0  //锁定类型，0：指纹锁  1：禁止访问
+}
