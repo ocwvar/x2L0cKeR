@@ -1,4 +1,4 @@
-package com.ocwvar.xlocker.content
+package com.ocwvar.xlocker.data
 
 /**
  * 锁定应用配置对象
@@ -9,7 +9,23 @@ package com.ocwvar.xlocker.content
 data class App(
     val packageName: String,
     val groupId: Int
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (other == null) {
+            return false
+        }
+
+        if (other !is App) {
+            return false
+        }
+
+        return other.hashCode() == hashCode()
+    }
+
+    override fun toString(): String = "$packageName with group $groupId"
+
+    override fun hashCode(): Int = packageName.hashCode()
+}
 
 /**
  * 规则组配置对象
@@ -22,7 +38,23 @@ data class Group(
     val id: Int,
     val startTime: String,
     val endTime: String
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (other == null) {
+            return false
+        }
+
+        if (other !is Group) {
+            return false
+        }
+
+        return other.hashCode() == hashCode()
+    }
+
+    override fun toString(): String = "GroupId $id from $startTime to $endTime"
+
+    override fun hashCode(): Int = id
+}
 
 /**
  * 配置参数对象

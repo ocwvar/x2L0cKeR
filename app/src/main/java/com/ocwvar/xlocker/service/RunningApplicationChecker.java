@@ -2,7 +2,7 @@ package com.ocwvar.xlocker.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.view.accessibility.AccessibilityEvent;
-import com.ocwvar.xlocker.content.Configuration;
+import com.ocwvar.xlocker.data.Configuration;
 
 /**
  * 运行程序监管服务
