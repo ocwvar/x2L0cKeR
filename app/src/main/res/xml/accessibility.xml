@@ -4,4 +4,4 @@
                        android:accessibilityFlags="flagRequestFilterKeyEvents"
                        android:canRetrieveWindowContent="true"
                        android:canRequestFilterKeyEvents="true"
-                       android:description=":)"/>
+                       android:description="@string/description"/>

@@ -27,13 +27,16 @@ data class Group(
 /**
  * 配置参数对象
  *
+ * @property enable Boolean    是否启用
  * @property updateInterval Long    配置刷新时间
- * @property lockType Int   锁定类型
+ * @property lockType LockType   锁定类型
+ * @property quitType QuitType   退出类型
  */
 data class Config(
     val enable: Boolean,
     val updateInterval: Long,
-    val lockType: LockType
+    val lockType: LockType,
+    val quitType: QuitType
 )
 
 /**
@@ -49,4 +52,21 @@ enum class LockType {
      * 完全拒绝访问
      */
     blockout
+}
+
+/**
+ * 退出类型
+ */
+enum class QuitType {
+
+    /**
+     * 返回主Launcher
+     */
+    Launcher,
+
+    /**
+     * 终止应用，需要ROOT权限
+     */
+    Termination
+
 }
