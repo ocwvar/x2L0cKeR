@@ -15,12 +15,14 @@ public class LastConfig {
 
     private LinkedHashMap<String, App> appList;
     private LinkedHashMap<Integer, Group> groupList;
+    private Group zeroGroup;
     private Config config;
 
     private LastConfig() {
-        appList = new LinkedHashMap<>();
-        groupList = new LinkedHashMap<>();
-        config = new Config(false, BuildConfig.DEBUG ? (5L * 1000L) : (60L * 1000L), LockType.fingerprint, QuitType.Launcher);
+        this.zeroGroup = new Group(0, new int[]{0, 0}, new int[]{24, 0});
+        this.appList = new LinkedHashMap<>();
+        this.groupList = new LinkedHashMap<>();
+        this.config = new Config(false, BuildConfig.DEBUG ? (5L * 1000L) : (60L * 1000L), LockType.fingerprint, QuitType.Launcher);
     }
 
     public static LastConfig get() {
@@ -58,7 +60,7 @@ public class LastConfig {
      */
     public @Nullable
     Group indexGroupById(int groupId) {
-        return this.groupList.get(groupId);
+        return groupId == 0 ? this.zeroGroup : this.groupList.get(groupId);
     }
 
     /**

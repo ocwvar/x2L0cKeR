@@ -2,6 +2,7 @@ package com.ocwvar.xlocker.data;
 
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -129,7 +130,7 @@ public class Configuration {
                                 jsonObject.get("name").getAsString(),
                                 new App(
                                         jsonObject.get("name").getAsString(),
-                                        jsonObject.get("groupId").getAsInt()
+                                        jsonObject.has("groupId") ? jsonObject.get("groupId").getAsInt() : 0
                                 )
                         );
                     }
@@ -150,15 +151,28 @@ public class Configuration {
             LinkedHashMap<Integer, Group> decodeGroupListConfig(JsonObject loadedJsonObject) {
                 try {
                     JsonObject jsonObject;
+                    String[] tempStringArray;
                     final LinkedHashMap<Integer, Group> result = new LinkedHashMap<>();
                     for (final JsonElement jsonElement : loadedJsonObject.get("group").getAsJsonArray()) {
                         jsonObject = jsonElement.getAsJsonObject();
+                        tempStringArray = jsonObject.get("start").getAsString().split(":");
+                        final int[] startTime = new int[]{
+                                Integer.parseInt(tempStringArray[0]),
+                                Integer.parseInt(tempStringArray[1])
+                        };
+
+                        tempStringArray = jsonObject.get("end").getAsString().split(":");
+                        final int[] endTime = new int[]{
+                                Integer.parseInt(tempStringArray[0]),
+                                Integer.parseInt(tempStringArray[1])
+                        };
+
                         result.put(
                                 jsonObject.get("id").getAsInt(),
                                 new Group(
                                         jsonObject.get("id").getAsInt(),
-                                        jsonObject.get("start").getAsString(),
-                                        jsonObject.get("end").getAsString()
+                                        startTime,
+                                        endTime
                                 )
                         );
                     }
@@ -221,9 +235,12 @@ public class Configuration {
                         break;
                     } else {
                         try {
+                            if (BuildConfig.DEBUG) {
+                                _outputLog("读取到文本：" + loadedText);
+                            }
                             loadedJsonObject = new JsonParser().parse(loadedText).getAsJsonObject();
-                        } catch (Exception ignore) {
-                            _outputLog("Json转换出现异常");
+                        } catch (Exception e) {
+                            _outputLog("Json转换出现异常 " + e);
                             cancelCode = 3;
                             break;
                         }
@@ -241,6 +258,7 @@ public class Configuration {
                     final LinkedHashMap<String, App> appArrayList = decodeAppListConfig(loadedJsonObject);
                     final LinkedHashMap<Integer, Group> groupsArrayList = decodeGroupListConfig(loadedJsonObject);
                     if (config == null || appArrayList == null || groupsArrayList == null) {
+                        _outputLog("数据转换出现异常");
                         cancelCode = 3;
                         break;
                     }
@@ -251,6 +269,7 @@ public class Configuration {
                     LastConfig.get().setGroupList(groupsArrayList);
                     LastConfig.get().setLastConfigHashCode(hashCode);
 
+                    _outputLog("新配置已生效");
                     try {
                         Thread.sleep(LastConfig.get().getConfig().getUpdateInterval());
                     } catch (InterruptedException ignore) {
@@ -283,6 +302,6 @@ public class Configuration {
      * 输出日志
      */
     private void _outputLog(String msg) {
-        System.out.println("#ConfigUpdate# " + msg);
+        Log.d("#ConfigUpdate#", msg);
     }
 }

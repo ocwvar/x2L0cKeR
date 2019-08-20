@@ -36,8 +36,8 @@ data class App(
  */
 data class Group(
     val id: Int,
-    val startTime: String,
-    val endTime: String
+    val startTime: IntArray,
+    val endTime: IntArray
 ) {
     override fun equals(other: Any?): Boolean {
         if (other == null) {
