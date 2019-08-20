@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import com.ocwvar.xlocker.BuildConfig;
 import com.ocwvar.xlocker.data.Configuration;
@@ -29,7 +30,7 @@ import com.ocwvar.xlocker.lock.Locker;
 public final class RunningApplicationChecker extends AccessibilityService {
 
     //所有必须的权限配置
-    private final String[] REQUIRE_PREMISSIONS = new String[]{
+    private final String[] REQUIRE_PERMISSIONS = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
@@ -94,6 +95,7 @@ public final class RunningApplicationChecker extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
+        stopSelf();
     }
 
     /**
@@ -102,6 +104,7 @@ public final class RunningApplicationChecker extends AccessibilityService {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        _outputLog("服务已结束");
         this.configuration.cancelLoading();
     }
 
@@ -115,7 +118,7 @@ public final class RunningApplicationChecker extends AccessibilityService {
             return true;
         }
 
-        for (final String permission : REQUIRE_PREMISSIONS) {
+        for (final String permission : REQUIRE_PERMISSIONS) {
             if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
@@ -128,6 +131,6 @@ public final class RunningApplicationChecker extends AccessibilityService {
      * 输出日志
      */
     private void _outputLog(String msg) {
-        System.out.println("#Checker# " + msg);
+        Log.d("###Checker###", msg);
     }
 }

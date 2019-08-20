@@ -57,6 +57,7 @@ public class Configuration {
         }
 
         this.updateThread.interrupt();
+        this.updateThread = null;
     }
 
     /**
@@ -250,6 +251,10 @@ public class Configuration {
                     hashCode = loadedText.hashCode();
                     if (hashCode == LastConfig.get().getLastConfigHashCode()) {
                         _outputLog("本次哈希值与已保存的一致，不作解析与更新操作");
+                        try {
+                            Thread.sleep(LastConfig.get().getConfig().getUpdateInterval());
+                        } catch (InterruptedException ignore) {
+                        }
                         continue;
                     }
 
@@ -302,6 +307,6 @@ public class Configuration {
      * 输出日志
      */
     private void _outputLog(String msg) {
-        Log.d("#ConfigUpdate#", msg);
+        Log.d("###ConfigUpdate###", msg);
     }
 }

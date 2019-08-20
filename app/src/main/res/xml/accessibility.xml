@@ -1,7 +1,5 @@
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
-                       android:accessibilityEventTypes="typeWindowsChanged|typeWindowContentChanged|typeWindowStateChanged"
-                       android:accessibilityFeedbackType="feedbackGeneric"
-                       android:accessibilityFlags="flagRequestFilterKeyEvents"
-                       android:canRetrieveWindowContent="true"
-                       android:canRequestFilterKeyEvents="true"
+                       android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged"
+                       android:accessibilityFeedbackType="feedbackAllMask"
+                       android:accessibilityFlags="flagIncludeNotImportantViews"
                        android:description="@string/description"/>
