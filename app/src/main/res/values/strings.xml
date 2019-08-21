@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">x2L0cKeR</string>
+
+    <!--显示在无障碍服务开关页面的简介-->
     <string name="description">:)</string>
+
+    <!--完全禁止页面的文字配置-->
+    <string name="blockout_tips">此应用已禁止访问</string>
+
+
 </resources>

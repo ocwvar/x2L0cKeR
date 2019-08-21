@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import com.ocwvar.xlocker.BuildConfig;
@@ -69,6 +71,10 @@ public final class RunningApplicationChecker extends AccessibilityService {
      */
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        if (event == null || event.getPackageName() == null) {
+            return;
+        }
+
         final String packageName = event.getPackageName().toString();
         _outputLog("当前包名：" + packageName);
 
@@ -80,6 +86,14 @@ public final class RunningApplicationChecker extends AccessibilityService {
                             .setData(Uri.fromParts("package", getPackageName(), null))
             );
             return;
+        } else if (Build.VERSION.SDK_INT >= 23 && !Settings.canDrawOverlays(getApplicationContext())) {
+            //没有悬浮窗权限
+            startActivity(
+                    new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+                            .setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .setData(Uri.parse("package:" + getPackageName()))
+            );
+            return;
         }
 
         if (!LastConfig.get().getConfig().getEnable()) {
@@ -87,10 +101,13 @@ public final class RunningApplicationChecker extends AccessibilityService {
             return;
         }
 
-        if (this.locker.isThisPackageNameNeed2Lock(packageName) && !this.locker.isUnlocked(packageName)) {
-            //如果此包名符合锁定条件，并且尚未解锁，则进行上锁
-            this.locker.lock(packageName);
+        if (TextUtils.equals(packageName, getPackageName())) {
+            //本应用的包名，不作处理
+            return;
         }
+
+        //剩下的交由锁处理
+        this.locker.handleThisPackageName(packageName);
     }
 
     @Override

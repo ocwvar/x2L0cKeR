@@ -14,9 +14,7 @@ public interface ILockupPageCallback {
 
     /**
      * 解锁失败回调接口
-     *
-     * @param retryCount 重试次数
      */
-    void onUnlockFailed(int retryCount);
+    void onUnlockFailed();
 
 }
