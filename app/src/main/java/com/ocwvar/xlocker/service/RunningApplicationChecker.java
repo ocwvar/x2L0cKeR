@@ -40,7 +40,8 @@ public final class RunningApplicationChecker extends AccessibilityService {
     //忽略的包名
     private final String[] IGNORE_PACKAGE_NAMES = new String[]{
             BuildConfig.APPLICATION_ID,
-            "com.android.systemui"
+            "com.android.systemui",
+            "android"
     };
 
     //配置更新器
