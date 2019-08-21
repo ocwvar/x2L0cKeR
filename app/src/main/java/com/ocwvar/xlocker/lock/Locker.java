@@ -1,9 +1,9 @@
 package com.ocwvar.xlocker.lock;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import com.ocwvar.xlocker.BuildConfig;
 import com.ocwvar.xlocker.data.App;
 import com.ocwvar.xlocker.data.Group;
@@ -147,7 +147,16 @@ public class Locker implements LockupInterface.Callback {
      * 执行退出动作
      */
     private void _doQuitAction() {
-
+        switch (LastConfig.get().getConfig().getQuitType()) {
+            case Launcher:
+                final Intent backHome = new Intent(Intent.ACTION_MAIN);
+                backHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                backHome.addCategory(Intent.CATEGORY_HOME);
+                this.applicationContext.startActivity(backHome);
+                break;
+            case Termination:
+                break;
+        }
     }
 
     /**

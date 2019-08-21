@@ -37,6 +37,12 @@ public final class RunningApplicationChecker extends AccessibilityService {
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
 
+    //忽略的包名
+    private final String[] IGNORE_PACKAGE_NAMES = new String[]{
+            BuildConfig.APPLICATION_ID,
+            "com.android.systemui"
+    };
+
     //配置更新器
     private Configuration configuration;
 
@@ -101,8 +107,8 @@ public final class RunningApplicationChecker extends AccessibilityService {
             return;
         }
 
-        if (TextUtils.equals(packageName, getPackageName())) {
-            //本应用的包名，不作处理
+        if (_checkInIgnorePage(packageName)) {
+            //在需要忽略的包名内，不作处理
             return;
         }
 
@@ -145,9 +151,25 @@ public final class RunningApplicationChecker extends AccessibilityService {
     }
 
     /**
+     * 检查是否在忽略处理页面
+     *
+     * @param packageName 包名
+     * @return 是否在忽略页面
+     */
+    private boolean _checkInIgnorePage(String packageName) {
+        for (final String name : IGNORE_PACKAGE_NAMES) {
+            if (TextUtils.equals(name, packageName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 输出日志
      */
     private void _outputLog(String msg) {
         Log.d("###Checker###", msg);
     }
+
 }
