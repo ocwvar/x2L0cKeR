@@ -3,7 +3,9 @@ package com.ocwvar.xlocker.lock;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
+
 import com.ocwvar.xlocker.BuildConfig;
 import com.ocwvar.xlocker.data.App;
 import com.ocwvar.xlocker.data.Group;
@@ -31,6 +33,9 @@ public class Locker implements LockupInterface.Callback {
 
     //当前已解锁的包名
     private String currentUnlockedPackageName;
+
+    //最后一次检查的包名
+    private String lastCheckedPackageName;
 
     public Locker(Context applicationContext) {
         this.applicationContext = applicationContext;
@@ -65,6 +70,7 @@ public class Locker implements LockupInterface.Callback {
      * @param packageName 包名
      */
     public void handleThisPackageName(@NonNull String packageName) {
+        this.lastCheckedPackageName = packageName;
 
         /*
                 判断流程
@@ -155,6 +161,7 @@ public class Locker implements LockupInterface.Callback {
                 this.applicationContext.startActivity(backHome);
                 break;
             case Termination:
+
                 break;
         }
     }

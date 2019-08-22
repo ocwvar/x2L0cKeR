@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.ocwvar.xlocker.R;
 import com.ocwvar.xlocker.data.LockType;
 import com.ocwvar.xlocker.lock.pages.i.BaseLockupPage;
@@ -150,10 +152,13 @@ public class OldFingerprintPage extends BaseLockupPage {
         public void onAuthenticationError(int errorCode, CharSequence errString) {
             super.onAuthenticationError(errorCode, errString);
 
-            switch (errorCode){
+            switch (errorCode) {
                 case FingerprintManager.FINGERPRINT_ERROR_TIMEOUT:
                 case FingerprintManager.FINGERPRINT_ERROR_CANCELED:
                 case FingerprintManager.FINGERPRINT_ERROR_USER_CANCELED:
+                    if (callback != null) {
+                        callback.onQuitWithoutUnlock();
+                    }
                     return;
 
                 case FingerprintManager.FINGERPRINT_ERROR_HW_NOT_PRESENT:
