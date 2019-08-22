@@ -7,5 +7,9 @@
     <!--完全禁止页面的文字配置-->
     <string name="blockout_tips">此应用已禁止访问</string>
 
+    <!--指纹识别页面文字配置-->
+    <string name="finger_tip_default">此应用已锁定，请使用指纹解锁</string>
+    <string name="finger_tip_error_failed">指纹识别失败，请重试</string>
+    <string name="finger_tip_error_failed_lockout">指纹识别失败次数过多，解锁失败</string>
 
 </resources>

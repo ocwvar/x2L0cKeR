@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.ocwvar.xlocker.data.LastConfig;
 import com.ocwvar.xlocker.lock.pages.BlockoutPage;
+import com.ocwvar.xlocker.lock.pages.OldFingerprintPage;
 import com.ocwvar.xlocker.lock.pages.i.BaseLockupPage;
 import com.ocwvar.xlocker.lock.pages.i.ILockupPageCallback;
 
@@ -44,6 +45,7 @@ public class LockupInterface implements ILockupPageCallback {
                     this.lockupPage = new BlockoutPage(this.applicationContext, this.windowManager);
                     break;
                 case fingerprint:
+                    this.lockupPage = new OldFingerprintPage(this.applicationContext, this.windowManager);
                     break;
             }
             this.lockupPage.setCallback(LockupInterface.this);

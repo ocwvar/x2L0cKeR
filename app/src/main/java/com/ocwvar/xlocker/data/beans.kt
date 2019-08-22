@@ -1,6 +1,35 @@
 package com.ocwvar.xlocker.data
 
 /**
+ * 忽略的应用对象
+ *
+ * @property packageName String 忽略的包名
+ * @property compareType Int    包名匹配方式，0-完全匹配  1-开头匹配
+ * @property description String 应用说明
+ */
+data class IgnoreApp(
+    val packageName: String,
+    val compareType: Int,
+    val description: String
+) {
+    override fun equals(other: Any?): Boolean {
+        if (other == null) {
+            return false
+        }
+
+        if (other !is IgnoreApp) {
+            return false
+        }
+
+        return other.hashCode() == hashCode()
+    }
+
+    override fun toString(): String = packageName
+
+    override fun hashCode(): Int = packageName.hashCode()
+}
+
+/**
  * 锁定应用配置对象
  *
  * @property packageName String 应用包名

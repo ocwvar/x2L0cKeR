@@ -7,10 +7,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
-import com.ocwvar.xlocker.BuildConfig;
+
 import com.ocwvar.xlocker.data.Configuration;
 import com.ocwvar.xlocker.data.Group;
 import com.ocwvar.xlocker.data.LastConfig;
@@ -34,14 +33,8 @@ public final class RunningApplicationChecker extends AccessibilityService {
     //所有必须的权限配置
     private final String[] REQUIRE_PERMISSIONS = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    };
-
-    //忽略的包名
-    private final String[] IGNORE_PACKAGE_NAMES = new String[]{
-            BuildConfig.APPLICATION_ID,
-            "com.android.systemui",
-            "android"
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Build.VERSION.SDK_INT >= 28 ? Manifest.permission.USE_BIOMETRIC : Manifest.permission.USE_FINGERPRINT
     };
 
     //配置更新器
@@ -57,17 +50,8 @@ public final class RunningApplicationChecker extends AccessibilityService {
     public void onCreate() {
         super.onCreate();
         _outputLog("服务已启动");
-
-        if (BuildConfig.DEBUG) {
-            //由于应用没有界面，所以如果是调试下，这里休眠 5s
-            try {
-                Thread.sleep(5000L);
-            } catch (InterruptedException ignore) {
-            }
-        }
-
         this.locker = new Locker(getApplicationContext());
-        this.configuration = new Configuration();
+        this.configuration = new Configuration(getApplicationContext());
         this.configuration.startLoadingTask();
     }
 
@@ -108,7 +92,7 @@ public final class RunningApplicationChecker extends AccessibilityService {
             return;
         }
 
-        if (_checkInIgnorePage(packageName)) {
+        if (LastConfig.get().indexIgnoreAppByPackageName(packageName)) {
             //在需要忽略的包名内，不作处理
             return;
         }
@@ -149,21 +133,6 @@ public final class RunningApplicationChecker extends AccessibilityService {
         }
 
         return true;
-    }
-
-    /**
-     * 检查是否在忽略处理页面
-     *
-     * @param packageName 包名
-     * @return 是否在忽略页面
-     */
-    private boolean _checkInIgnorePage(String packageName) {
-        for (final String name : IGNORE_PACKAGE_NAMES) {
-            if (TextUtils.equals(name, packageName)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

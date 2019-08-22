@@ -1,0 +1,79 @@
+{
+  "ignoreArray": [
+    {
+      "packageName": "android",
+      "type": 0,
+      "description": "神必系统级别对话框"
+    },
+    {
+      "packageName": "com.ocwvar.xlocker",
+      "type": 0,
+      "description": "软件本身"
+    },
+    {
+      "packageName": "com.android.systemui",
+      "type": 0,
+      "description": "下拉框以及最近历史"
+    },
+    {
+      "packageName": "com.google.android.inputmethod.latin",
+      "type": 0,
+      "description": "Google键盘"
+    },
+    {
+      "packageName": "com.baidu.input",
+      "type": 0,
+      "description": "百度输入法"
+    },
+    {
+      "packageName": "com.android.inputmethod.latin",
+      "type": 0,
+      "description": "AOSP键盘"
+    },
+    {
+      "packageName": "com.android.inputmethod.pinyin",
+      "type": 0,
+      "description": "旧版Google拼音"
+    },
+    {
+      "packageName": "com.sohu.inputmethod.sogou",
+      "type": 0,
+      "description": "搜狗输入法"
+    },
+    {
+      "packageName": "com.samsung.android.svoiceime",
+      "type": 0,
+      "description": "三星语音输入"
+    },
+    {
+      "packageName": "com.iflytek.inputmethod",
+      "type": 1,
+      "description": "讯飞各种输入法"
+    },
+    {
+      "packageName": "com.google.android.googlequicksearchbox",
+      "type": 0,
+      "description": "Google 语音输入"
+    },
+    {
+      "packageName": "com.sec.android.inputmethod",
+      "type": 0,
+      "description": "三星自带输入法"
+    },
+    {
+      "packageName": "com.touchtype.swiftkey",
+      "type": 0,
+      "description": "SwiftKey 键盘"
+    },
+    {
+      "packageName": "com.sonyericsson.textinput.chinese",
+      "type": 0,
+      "description": "索尼中文输入法"
+    },
+    {
+      "packageName": "com.sonymobile.pobox",
+      "type": 0,
+      "description": "索尼日文输入法"
+    }
+  ]
+}
