@@ -3,7 +3,7 @@
     {
       "packageName": "android",
       "type": 0,
-      "description": "神必系统级别对话框"
+      "description": "神必系统级别对话框、AutoFill 服务对话框"
     },
     {
       "packageName": "com.ocwvar.xlocker",
