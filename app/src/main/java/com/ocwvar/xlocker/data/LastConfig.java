@@ -27,7 +27,7 @@ public class LastConfig {
         this.zeroGroup = new Group(0, new int[]{0, 0}, new int[]{24, 0});
         this.appList = new LinkedHashMap<>();
         this.groupList = new LinkedHashMap<>();
-        this.config = new Config(false, BuildConfig.DEBUG ? (5L * 1000L) : (60L * 1000L), LockType.fingerprint, QuitType.Launcher);
+        this.config = new Config(false, false, BuildConfig.DEBUG ? (5L * 1000L) : (60L * 1000L), LockType.fingerprint, QuitType.Launcher);
     }
 
     public static LastConfig get() {

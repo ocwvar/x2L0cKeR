@@ -225,4 +225,14 @@ public class Locker implements LockupInterface.Callback {
         return now.after(this.start) && now.before(this.end);
     }
 
+    /**
+     * DEBUG：显示调试信息
+     *
+     * @param msg 信息
+     */
+    public void __showDebugMsg(String msg) {
+        this.lockupInterface.__switchDebugView(LastConfig.get().getConfig().isDebug());
+        this.lockupInterface.__updateDebugView(msg);
+    }
+
 }

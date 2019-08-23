@@ -89,12 +89,14 @@ data class Group(
  * 配置参数对象
  *
  * @property enable Boolean    是否启用
+ * @property isDebug Boolean    是否为调试模式
  * @property updateInterval Long    配置刷新时间
  * @property lockType LockType   锁定类型
  * @property quitType QuitType   退出类型
  */
 data class Config(
     val enable: Boolean,
+    val isDebug: Boolean,
     val updateInterval: Long,
     val lockType: LockType,
     val quitType: QuitType

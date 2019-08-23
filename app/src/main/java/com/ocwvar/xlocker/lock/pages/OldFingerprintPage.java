@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ocwvar.xlocker.R;
+import com.ocwvar.xlocker.data.LastConfig;
 import com.ocwvar.xlocker.data.LockType;
 import com.ocwvar.xlocker.lock.pages.i.BaseLockupPage;
 import com.ocwvar.xlocker.lock.pages.i.ILockupPageCallback;
@@ -106,6 +107,16 @@ public class OldFingerprintPage extends BaseLockupPage {
                 callback.onQuitWithoutUnlock();
             }
         });
+
+        //调试模式
+        if (LastConfig.get().getConfig().isDebug()){
+            view.findViewById(R.id.finger_quit).setOnLongClickListener((self) -> {
+                if (LastConfig.get().getConfig().isDebug()){
+                    hideAndReset();
+                }
+                return true;
+            });
+        }
 
         return view;
     }

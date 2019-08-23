@@ -264,7 +264,8 @@ public class Configuration {
             Config decodeConfigObject(JsonObject loadedJsonObject) {
                 try {
                     return new Config(
-                            true,
+                            loadedJsonObject.get("enable").getAsBoolean(),
+                            loadedJsonObject.get("debug").getAsBoolean(),
                             loadedJsonObject.get("updateInterval").getAsLong(),
                             LockType.values()[loadedJsonObject.get("lockType").getAsInt()],
                             QuitType.values()[loadedJsonObject.get("quitType").getAsInt()]

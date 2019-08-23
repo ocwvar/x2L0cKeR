@@ -92,6 +92,11 @@ public final class RunningApplicationChecker extends AccessibilityService {
             return;
         }
 
+        if (LastConfig.get().getConfig().isDebug()) {
+            //显示调试信息
+            this.locker.__showDebugMsg(packageName);
+        }
+
         if (LastConfig.get().indexIgnoreAppByPackageName(packageName)) {
             //在需要忽略的包名内，不作处理
             return;

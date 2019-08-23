@@ -5,15 +5,14 @@
       "groupId": 1  //所属规则组id
     },
     {
-      "name": "com.tencent.mobileqq",
-      "groupId": 2
+      "name": "com.tencent.mobileqq"  //如果不配置规则组id，则代表为全时段开启
     }
   ],
   "group": [  //这里键配置规则组
     {
-      "id": 1,  //组id
-      "start": "1:00",  //组生效时间
-      "end": "13:00"  //组失效时间
+      "id": 1,  //组id，不可配置组别id为 0
+      "start": "1:00",  //组生效时间 24小时制
+      "end": "13:00"  //组失效时间 24小时制
     },
     {
       "id": 2,
@@ -21,6 +20,8 @@
       "end": "5:00"
     }
   ],
+  "enable": true, //是否启用配置
+  "debug": true, //是否为调试模式
   "updateInterval": 60000,  //配置文件读取刷新时间，将会在下一次读取的时候生效
   "lockType": 0,  //锁定类型，0：指纹锁  1：禁止访问
   "quitType": 0  //退出类型，0：返回桌面  1：终止进程(Root)

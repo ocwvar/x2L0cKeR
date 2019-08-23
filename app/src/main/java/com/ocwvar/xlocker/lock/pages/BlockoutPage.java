@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.ocwvar.xlocker.R;
+import com.ocwvar.xlocker.data.LastConfig;
 import com.ocwvar.xlocker.data.LockType;
 import com.ocwvar.xlocker.lock.pages.i.BaseLockupPage;
 import com.ocwvar.xlocker.lock.pages.i.ILockupPageCallback;
@@ -57,6 +58,17 @@ public class BlockoutPage extends BaseLockupPage implements View.OnClickListener
     public View onGetFloatingPanel() {
         this.floatingView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.page_blockout, null);
         this.floatingView.findViewById(R.id.blockout_quit).setOnClickListener(BlockoutPage.this);
+
+        //调试模式
+        if (LastConfig.get().getConfig().isDebug()){
+            this.floatingView.findViewById(R.id.blockout_quit).setOnLongClickListener((self) -> {
+                if (LastConfig.get().getConfig().isDebug()){
+                    hideAndReset();
+                }
+                return true;
+            });
+        }
+
         return this.floatingView;
     }
 
