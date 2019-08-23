@@ -46,7 +46,7 @@ public final class RunningApplicationChecker extends AccessibilityService {
     /**
      * 是否曾经拥有悬浮窗权限
      * <p>
-     * 在 Android O Api26 的设备上，会有一个叫做 AutoFill 的服务，此服务开启的情况下
+     * 在 Android O Api26 的设备上，会有一个叫做 <b>AutoFill</b> 的服务，此服务开启的情况下
      * 会在某些输入框内弹出自动填充窗口，此窗口出现的时候， {@link Settings#canDrawOverlays(Context)} 将会返回 <b>False</b>
      * 即使你的应用已经开启了权限。
      * <p>
